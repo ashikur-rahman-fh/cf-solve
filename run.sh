@@ -6,8 +6,6 @@ if [[ $# -lt 1 ]]; then
 fi
 filename=$1
 
-inputfile=$2
-
 if [[ ! -f $filename ]]; then
     echo "Error: File expected."
     exit 1
