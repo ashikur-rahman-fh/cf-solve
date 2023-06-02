@@ -11,7 +11,7 @@ if [[ ! -f $filename ]]; then
     exit 1
 fi
 
-if [[ ! -f sol.exe || $(date -r $filename) > $(date -r sol.exe) ]]; then
+if [[ ! -f sol.exe || $(stat -c '%Y' $filename) -gt $(stat -c '%Y' sol.exe) ]]; then
     echo "Building $filename ..."
     g++ $filename -std=c++17 -Wall -o sol.exe -fmax-errors=2
 
@@ -23,6 +23,9 @@ if [[ $? -eq 0 ]]; then
     echo "Executing $filename"
     echo "----------------------------------------------------"
     time timeout 2 ./sol.exe
+
+else
+    exit 1
 fi
 
 exitcode=$?
